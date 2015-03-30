@@ -1,5 +1,5 @@
 <?php
-namespace codemix\localeurls;
+namespace dlds\localeurls;
 
 use Yii;
 use yii\base\InvalidConfigException;

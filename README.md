@@ -34,7 +34,7 @@ All the above (and more) is configurable of course.
 
 Install the package through [composer](http://getcomposer.org):
 
-    composer require codemix/yii2-localeurls
+    composer require dlds/yii2-localeurls
 
 And then add this to your application configuration:
 
@@ -51,7 +51,7 @@ return [
         // ...
 
         'localeUrls' => [
-            'class' => 'codemix\localeurls\LocaleUrls',
+            'class' => 'dlds\localeurls\LocaleUrls',
 
             // List all supported languages here
             'languages' => ['en_us', 'en', 'fr', 'de']
@@ -59,7 +59,7 @@ return [
 
         // Override the urlManager component
         'urlManager' => [
-            'class' => 'codemix\localeurls\UrlManager',
+            'class' => 'dlds\localeurls\UrlManager',
         ]
 
         // ...
