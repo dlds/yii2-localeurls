@@ -27,6 +27,11 @@ class UrlManager extends BaseUrlManager {
     public $languageParam = 'language';
 
     /**
+     * @var string param which disable locale urls and retrieves standart url
+     */
+    public $disableLocalesParam = '_disable_locales';
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -57,6 +62,14 @@ class UrlManager extends BaseUrlManager {
         {
             $language = Yii::$app->language;
             $languageRequired = false;
+        }
+
+        // if disable param is set return default url
+        if (isset($params[$this->disableLocalesParam]))
+        {
+            unset($params[$this->disableLocalesParam]);
+
+            return parent::createUrl($params);
         }
 
         $url = parent::createUrl($params);
@@ -90,7 +103,7 @@ class UrlManager extends BaseUrlManager {
                 {
                     $parts['path'] = trim(sprintf('%s%s', $language, $parts['path']), '/');
                 }
-                
+
                 $fullpath = sprintf('%s://%s/%s%s', $parts['scheme'], $parts['host'], $parts['path'], $this->suffix);
 
                 if (isset($parts['query']))
@@ -104,5 +117,4 @@ class UrlManager extends BaseUrlManager {
             return $length ? substr_replace($url, "$base/$language", 0, $length) : "/$language$url";
         }
     }
-
 }
