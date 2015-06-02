@@ -50,6 +50,7 @@ class UrlManager extends BaseUrlManager {
     public function createUrl($params)
     {
         $params = (array) $params;
+        $anchor = isset($params['#']) ? $params['#'] : '';
         $localeUrls = Yii::$app->localeUrls;
 
         if (isset($params[$this->languageParam]))
@@ -106,6 +107,11 @@ class UrlManager extends BaseUrlManager {
 
                 $fullpath = sprintf('%s://%s/%s%s', $parts['scheme'], $parts['host'], $parts['path'], $this->suffix);
 
+                if ($anchor)
+                {
+                    $fullpath = sprintf('%s#%s', $fullpath, $anchor);
+                }
+
                 if (isset($parts['query']))
                 {
                     return sprintf('%s?%s', $fullpath, $parts['query']);
@@ -114,7 +120,16 @@ class UrlManager extends BaseUrlManager {
                 return $fullpath;
             }
 
-            return $length ? substr_replace($url, "$base/$language", 0, $length) : "/$language$url";
+            if ($length)
+            {
+                $path = substr_replace($url, "$base/$language", 0, $length);
+            }
+            else
+            {
+                $path = "/$language$url";
+            }
+
+            return $path.$anchor;
         }
     }
 }
