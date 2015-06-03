@@ -51,6 +51,12 @@ class UrlManager extends BaseUrlManager {
     {
         $params = (array) $params;
         $anchor = isset($params['#']) ? $params['#'] : '';
+        
+        if (!isset(Yii::$app->localeUrls))
+        {
+            throw new \yii\base\Exception('LocaleUrls not found');
+        }
+
         $localeUrls = Yii::$app->localeUrls;
 
         if (isset($params[$this->languageParam]))
